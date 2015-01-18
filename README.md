@@ -3,7 +3,7 @@ WecenterTheme
 
 Free WeCenter Theme By Gothic 
 
-把之前做的一些 WeCenter 模板放上来吧，都是免费的。
+这些是我很早之前模仿的一些 wecenter 模板，都是免费分享的，当初技术不行，可能有的不是很精致，可以自己拿去再修改下。
 
 WeCenter 是啥？ 
 http://www.wecenter.com 一款开源的社交问答程序
