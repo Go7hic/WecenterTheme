@@ -1,0 +1,96 @@
+<?php TPL::output('global/header_meta.tpl.htm'); ?>
+<body>
+	<div class="aw-top-menu-wrap">
+		<div class="aw-wecenter aw-top-menu clearfix">
+			<div class="container">
+				<!-- logo -->
+				<div class="aw-logo">
+					<a href="<?php echo get_setting('base_url'); ?>"></a>
+				</div>
+				<!-- end logo -->
+				<!-- 用户栏 -->
+				<div class="aw-user-nav">
+					<!-- 登陆&注册栏 -->
+					<?php if ($this->user_id) { ?>
+					<a href="people/<?php echo $this->user_info['url_token']; ?>" class="aw-user-nav-dropdown aw-hide-txt">
+						<img alt="<?php echo $this->user_info['user_name']; ?>" src="<?php echo get_avatar_url($this->user_info['uid'], 'mid'); ?>" />
+						<?php?>
+
+					</a>
+					<div class="aw-user-nav-dropdown-list pull-right">
+						<ul>
+							<li><a href="inbox/"><i class="fa fa-envelope"></i> <?php _e('私信'); ?><span class="badge badge-important hide" id="inbox_unread">0</span></a></li>
+							<li class="hidden-xs"><a href="account/setting/profile/"><i class="fa fa-cog"></i> <?php _e('设置'); ?></a></li>
+							<?php if ($this->user_info['permission']['is_administortar'] ) { ?>
+							<li class="hidden-xs"><a href="admin/"><i class="fa fa-wrench"></i> <?php _e('管理'); ?></a></li>
+							<?php } ?>
+							<li><a href="account/logout/"><i class="fa fa-power-off"></i> <?php _e('退出'); ?></a></li>
+						</ul>
+					</div>
+					<?php } else { ?>
+					<span>
+						<a href="account/register/"><?php _e('注册'); ?></a>
+						<a href="account/login/"><?php _e('登录'); ?></a>
+					</span>
+					<?php } ?>
+					<!-- end 登陆&注册栏 -->
+				</div>
+				<!-- end 用户栏 -->
+				<div class="d-panel">
+					<ul class="d-icons clearfix">
+						<li>
+							<?php if ($this->user_id) { ?>
+							<a href="people/<?php echo $this->user_info['url_token']; ?>" class="aw-user-nav-dropdown aw-hide-txt">
+								<?php echo $this->user_info['user_name']; ?>
+								<?php if ($this->user_info['inbox_unread'] != 0) {?>
+								<span class="badge badge-important"><?php echo $this->user_info['inbox_unread']?></span>
+								<?php } ?>
+								<?php } ?>
+
+							</a>
+						</li>
+						<li class="hidden-xs">
+							<?php if ($this->user_id) { ?>
+							<a href="notifications/" class="<?php if ($_GET['app'] == 'notifications') { ?>active<?php } ?> icon fa fa-comment"><span class="badge badge-important" style="display:none" id="notifications_unread"><?php echo $this->user_info['notification_unread']; ?></span></a>
+							<div class="aw-message-dropdown hidden-xs">
+								<span><i class="i-dropdown-triangle active"></i></span>
+								<ul id="header_notification_list"></ul>
+							</div>
+							<?php } ?>
+						</li>
+						<li class="hidden-xs">
+							<a class="icon fa fa-search"></a>
+							<form class="navbar-search d-search " action="search/" id="global_search_form" method="post">
+								<div class="input-group">
+									<input class="form-control" type="text" placeholder="<?php _e('搜索问题、话题或人'); ?>" autocomplete="off" name="q" id="aw-search-query" class="search-query" />
+									<span class="input-group-addon" title="<?php _e('搜索'); ?>" id="global_search_btns" onClick="$('#global_search_form').submit();"><i class="fa fa-search"></i></span>
+									<div class="clearfix"></div>
+									<div class="aw-dropdown">
+										<i class="i-dropdown-triangle"></i>
+										<p class="title"><?php _e('输入关键字进行搜索'); ?></p>
+										<ul class="aw-dropdown-list"></ul>
+										<p class="search"><span><?php _e('搜索'); ?>:</span><a onClick="$('#global_search_form').submit();"></a></p>
+										<p><a href="<?php if (get_setting('quick_publish') == 'Y' && $this->user_id) { ?>javascript:;<? } else { ?>publish<?php } ?>" onClick="$('#header_publish').click();" class="pull-right btn btn-normal btn-success publish"><?php _e('发起问题'); ?></a></p>
+									</div>
+								</div>
+							</form>
+						</li>
+						<li>
+							<a class="icon fa fa-bars" data-dropdown="site-map-dropdown" data-render="renderSiteMap" href="#" title="查看分类" id="site-map">
+							</a>
+							<nav role="navigation" class="collapse navbar-collapse bs-navbar-collapse active">
+								<ul class="nav navbar-nav">
+									<li><a href="" class="active">首页</a></li>
+									<li><a href="explore/" class="">发现</a></li>
+									<li><a href="topic/">话题</a></li>
+									<li><a href="people/list/">用户</a></li>
+
+								</ul>
+							</nav>
+						</li>
+					</ul>
+				</div>
+
+			</div>
+		</div>
+	</div>

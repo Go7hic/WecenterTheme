@@ -1,0 +1,66 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+
+<div class="aw-container-wrap">
+	<div class="aw-container aw-wecenter">
+	<div class="container">
+		<div class="row aw-content-wrap">
+			<div class="col-sm-12 col-md-9 aw-main-content">
+			
+				
+				<a name="c_contents"></a>
+				<div class="aw-mod aw-dynamic-topic clearfix cell">
+					<div class="aw-mod-head">
+						<h2 id="main_title"><?php _e('最新动态'); ?></h2>
+					</div>
+					
+					<div class="aw-mod-body" id="main_contents"></div>
+					
+					<!-- 加载更多内容 -->
+					<a id="bp_more" class="aw-load-more-content">
+						<span><?php _e('更多'); ?>...</span>
+					</a>
+					<!-- end 加载更多内容 -->
+				</div>
+			</div>
+			<!-- 侧边栏 -->
+			<div class="col-sm-12 col-md-3 aw-side-bar">
+				<?php if ($this->user_id) { ?>
+						<?php TPL::output('block/sidebar_user_detail.tpl.htm')?>
+				<?php } ?>
+					<?php if ($this->user_id) { ?>
+						<?php TPL::output('block/sidebar_menu.tpl.htm')?>
+				<?php } ?>
+				<?php TPL::output('block/sidebar_announce.tpl.htm'); ?>
+				
+				
+				
+				<div class="aw-side-bar-mod invite-join cell">
+					<div class="aw-mod-head">
+						<h3><?php _e('邀请好友加入社区'); ?><?php if ($this->user_info['invitation_available']) { ?><em class="badge badge-info"><?php echo $this->user_info['invitation_available']; ?></em><?php } ?></h3>
+					</div>
+					<div class="aw-mod-body">
+						<a href="invitation/" class="btn btn-mini btn-success"><?php _e('发送邀请'); ?></a>
+					</div>
+				</div>
+				
+				<!-- 可能感兴趣的人/或话题 -->
+				<?php TPL::output('block/sidebar_recommend_users_topics.tpl.htm'); ?>
+			</div>
+			<!-- end 侧边栏 -->
+		</div>
+	</div>
+</div>
+</div>
+
+<?php if ($_GET['first_login']) { ?>
+<script type="text/javascript">
+$(document).ready(function () {
+	$.get(G_BASE_URL+'/account/ajax/welcome_message_template/', function (template) {
+		$('#aw-ajax-box').html(template);
+		welcome_step_1_load();
+	});
+});
+</script>
+<?php } ?>
+
+<?php TPL::output('global/footer.tpl.htm'); ?>

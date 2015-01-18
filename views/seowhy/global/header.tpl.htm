@@ -1,0 +1,89 @@
+<?php TPL::output('global/header_meta.tpl.htm'); ?>
+
+<body>
+	<!-- 搜外全站公用迷你导航 v1-->
+	<div class="mininav">
+		<div class="mininav_inner">
+			<ul class="nav_list">
+					<li class="nav_list_li"><a href="http://www.xiangmubaba.com/" target="_blank">首页</a></li>
+				<li class="nav_list_li"><a href="http://www.xiangmubaba.com/xiangmu/" target="_blank">聚项目</a></li>
+				<li class="nav_list_li"><a href="http://www.xiangmubaba.com/company/" target="_blank" class="active">聚名企</a></li>
+				<li class="nav_list_li"><a href="http://www.xiangmubaba.com/news/" target="_blank">聚报道</a></li>
+				<li class="nav_list_li"><a href="http://i.xiangmubaba.com/" target="_blank">聚问答</a></li>
+			</ul>
+			<div class="aw-logined-nav">
+				<ul class="nav_list myinfo">
+					<?php if ($this->user_id) { ?>
+					<li class="nav_list_li"><a href="<?php echo get_setting('base_url'); ?>/people/<?php echo $this->user_info['url_token']; ?>"><span><img src="<?php echo get_avatar_url($this->user_info['uid'], 'mid'); ?>" title="<?php echo $this->user_info['user_name']; ?>" alt="<?php echo $this->user_info['user_name']; ?>"/>欢迎您，<?php echo $this->user_info['user_name']; ?></span></a></li>
+					<li class="nav_list_dropdown">
+						<a href="notifications/" class="dropdown_a"><?php _e('通知'); ?><span id="notifications_unread" class="badge badge-important" style="display:none;"><?php echo $this->user_info['notification_unread']; ?></span></a>
+						<div class="aw-message-dropdown">
+							<div class="arrow active"><span></span></div>
+							<ul id="header_notification_list"></ul>
+							<ul><li style="border-top:1px dotted #C1CAD4;padding-top:5px;"><a href="<?php echo get_setting('base_url'); ?>/setting/privacy/#notifications" class="aw-text-color-999">我只想看到我关注的通知条目</a></li></ul>
+						</div>
+					</li>
+					<li class="nav_list_li"><a href="<?php echo get_setting('base_url'); ?>/home/#invite_list__invite" rel="invite_list__invite"><?php _e('受邀'); ?><?php if ($this->user_info['invite_count']) { ?><b style="color:#fff;"> (<?php echo $this->user_info['invite_count']; ?>)</b><?php } ?></a></li>
+					<li class="nav_list_li"><a href="inbox/"><?php _e('私信'); ?><span id="inbox_unread" class="badge badge-important" style="display:none;">0</span></a></li>
+					<li class="nav_list_li"><a href="<?php echo get_setting('base_url'); ?>/account/setting/profile/" class="set"><span><?php _e('设置'); ?></span></a></li>
+					<li class="nav_list_li"><?php if ($this->user_info['permission']['is_administortar'] ) { ?><a href="<?php echo get_setting('base_url') . G_INDEX_SCRIPT; ?>admin/" class="manage" target="_blank"><span><?php _e('管理'); ?></span></a><?php } ?></li>
+					<li class="nav_list_li"><a href="<?php echo get_setting('base_url'); ?>/account/logout/" class="exit"><span><?php _e('退出'); ?></span></a></li>
+					<?php } else { ?>
+					<li class="nav_list_li"><a href="account/login/" rel="nofollow"><span><?php _e('登录'); ?></span></a></li>
+					<li class="nav_list_li"><a href="reg/" rel="nofollow"><span><?php _e('注册'); ?></span></a></li>
+					<?php } ?>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+<div class="sw-hd">
+	<div class="sw-top">
+		<div class="layout">
+			<div class="sw-top-logo">
+				<h1 class="seowhy">项目巴巴创业社区</h1>
+				<a href="<?php echo get_setting('base_url'); ?>">项目加盟社区、创业社区,助你选择成功靠谱的好项目!</a>
+			</div>
+			<div class="sw-top-nav">
+				<ul>
+					<li><a href="<?php echo get_setting('base_url'); ?>/?explore/">全部问题</a></li>
+					<li><a href="<?php echo get_setting('base_url'); ?>/topic/">话题广场</a></li>
+					<li><a href="<?php echo get_setting('base_url'); ?>/users/">人物</a></li>
+				</ul>
+			</div>
+			<div class="sw-top-se">
+				<form action="<?php echo get_setting('base_url'); ?>/search/" id="global_search_form" method="post">
+					<input name="q" class="sw-input" autocomplete="off" placeholder="试试搜索：项目加盟" maxlength="60">
+					<input type="submit" class="sw-input-btn" value="搜索">
+				</form>
+
+			</div>
+		</div>
+	</div>
+	<div class="sw-nav">
+		<div class="layout">
+			<div class="sw-nav fl">
+				<ul>
+					<li><a href="<?php echo get_setting('base_url'); ?>">首页</a></li>
+					<li><a href="<?php echo get_setting('base_url'); ?>/topic/%E9%A1%B9%E7%9B%AE%E5%8A%A0%E7%9B%9F">项目加盟</a></li>
+					<li><a href="<?php echo get_setting('base_url'); ?>/topic/头脑风暴">头脑风暴</a></li>
+					<li><a href="<?php echo get_setting('base_url'); ?>/topic/dianzishangwu">电子商务</a></li>
+					<li><a href="<?php echo get_setting('base_url'); ?>/topic/wangluoyingxiao">网络营销</a></li>
+					<li><a href="<?php echo get_setting('base_url'); ?>/topic/团队管理">团队管理</a></li>
+					<li><a href="<?php echo get_setting('base_url'); ?>//topic/在路上">在路上</a></li>
+				</ul>
+			</div>
+			<div class="sw-nav fr">
+				<ul>
+					<li><a href="<?php echo get_setting('base_url'); ?>/publish/">发起问题</a></li>
+					<?php if ($this->user_id) { ?>
+					<li><a href="<?php echo get_setting('base_url'); ?>/people/<?php echo $this->user_info['url_token']; ?>">我的搜问</a></li>
+					<?php } ?>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<!--[if IE 7]>
+<div style="background-color:#FEFEE5;height:30px;line-height:30px;"><div style="width:960px;margin:0 auto;">您使用的浏览器版本较低，我们强烈建议您升级浏览器、或者下载 <a href="https://www.google.com/intl/zh-CN/chrome/browser/" target="_blank">Google Chrome</a> 浏览器。当前浏览器会影响您的浏览速度和视觉感受。</div></div>
+<![endif]-->

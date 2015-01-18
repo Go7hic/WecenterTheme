@@ -1,0 +1,93 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+
+<div class="aw-container-wrap">
+	<div class="aw-container aw-wecenter">
+		<div class="container">
+		<div class="row aw-banner-nav">
+				<div class="col-sm-8 col-md-8 aw-main-nav">
+					<ul>
+						<li><a href="#">动态消息</a></li>
+						<li><a href="topic/square/hot">热门话题</a></li>
+						<li><a href="question/square/">查看问题</a></li>
+						<li><a href="article/square/">查看文章</a></li>
+						
+					</ul>	
+				</div>
+				<div class="col-sm-4 col-md-4 aw-side-search pull-right">
+					<form class="navbar-search pull-right" action="search/" id="global_search_form" method="post">
+						<div class="input-group">
+							<input class="form-control" type="text" placeholder="<?php _e('搜索问题、话题或人'); ?>" autocomplete="off" name="q" id="aw-search-query" class="search-query" />
+							<span class="input-group-addon" title="<?php _e('搜索'); ?>" id="global_search_btns" onClick="$('#global_search_form').submit();"><i class="fa fa-search"></i></span>
+							<div class="clearfix"></div>
+							<div class="aw-dropdown">
+								<i class="i-dropdown-triangle"></i>
+								<p class="title"><?php _e('输入关键字进行搜索'); ?></p>
+								<ul class="aw-dropdown-list"></ul>
+								<p class="search"><span><?php _e('搜索'); ?>:</span><a onClick="$('#global_search_form').submit();"></a></p>
+								<p><a href="<?php if (get_setting('quick_publish') == 'Y' && $this->user_id) { ?>javascript:;<? } else { ?>publish<?php } ?>" onClick="$('#header_publish').click();" class="pull-right btn btn-normal btn-success publish"><?php _e('发起问题'); ?></a></p>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	<!-- 	<?php TPL::output('block/content_nav_menu.tpl.htm'); ?> -->
+
+		<div class="container">
+			
+			<div class="row aw-content-wrap">
+				<div class="col-sm-12 col-md-9 aw-main-content aw-all-question">
+					<!-- tab切换 -->
+					<ul class="nav nav-tabs aw-reset-nav-tabs hidden-xs">
+						<li<?php if ((!$_GET['sort_type'] OR $_GET['sort_type'] == 'new') AND !$_GET['is_recommend']) { ?> class="active"<?php } ?>><a href="explore/<?php if ($this->feature_info) { ?>feature_id-<?php echo $this->feature_info['id']; ?>__<?php } ?><?php if ($this->category_info['id']) { ?>category-<?php echo $this->category_info['id']; ?><?php } ?>"><?php _e('最新'); ?></a></li>
+						<li<?php if ($_GET['is_recommend']) { ?> class="active"<?php } ?>><a href="explore/<?php if ($this->feature_info) { ?>feature_id-<?php echo $this->feature_info['id']; ?>__<?php } ?>category-<?php echo $this->category_info['id']; ?>__is_recommend-1"><?php _e('推荐'); ?></a></li>
+							<li<?php if ($_GET['sort_type'] == 'hot') { ?> class="active"<?php } ?>><a href="explore/<?php if ($this->feature_info) { ?>feature_id-<?php echo $this->feature_info['id']; ?>__<?php } ?>category-<?php echo $this->category_info['id']; ?>__sort_type-hot__day-30" id="sort_control_hot"><?php _e('热门'); ?></a></li>
+						<li<?php if ($_GET['sort_type'] == 'unresponsive') { ?> class="active"<?php } ?>><a href="explore/<?php if ($this->feature_info) { ?>feature_id-<?php echo $this->feature_info['id']; ?>__<?php } ?>category-<?php echo $this->category_info['id']; ?>__sort_type-unresponsive"><?php _e('等待回复'); ?></a></li>
+					
+						<?php if ($this->user_id) { ?>
+				<div class="aw-publish-btn pull-right">
+					<a id="header_publish"<?php if (get_setting('quick_publish') == 'Y' AND $this->user_id) { ?>href="publish/"<?php } else { ?>href="publish/<?php if ($_GET['category']) { ?>category_id-<?php echo intval($_GET['category']); ?>__<?php } ?><?php if ($this->topic_info) { ?>topic_title-<?php echo urlencode($this->topic_info['topic_title']); ?>__<?php } ?>"<?php } ?> class="<?php if ($_GET['app'] == 'publish') { ?> active<?php } ?>"<?php if (get_setting('quick_publish') == 'Y' && $this->user_id) { ?> onclick="$.dialog('publish', {'category_enable':'<?php echo (get_setting('category_enable') == 'Y') ? '1' : '0'; ?>', 'category_id':'<?php echo intval($_GET['category']); ?>', 'topic_title':'<?php echo $this->topic_info['topic_title']; ?>'}); return false;"<?php } ?>><i class="fa fa-edit"></i><?php _e('发起'); ?></a>
+				</div>
+				<?php }?>
+						
+
+					
+					</ul>
+					<!-- end tab切换 -->
+
+					<?php if ($_GET['sort_type'] == 'hot') { ?>
+					<!-- 自定义tab切换 -->
+					<div class="aw-tabs">
+						<ul class="pull-right">
+							<li<?php if ($_GET['sort_type'] == 'hot' AND $_GET['day'] == 30) { ?> class="active"<?php } ?>><a href="explore/<?php if ($this->feature_info) { ?>feature_id-<?php echo $this->feature_info['id']; ?>__<?php } ?>sort_type-hot__<?php if ($this->category_info['id']) { ?>__category-<?php echo $this->category_info['id']; ?><?php } ?>__day-30" day="30"><?php _e('30天'); ?></a></li>
+							<li<?php if ($_GET['sort_type'] == 'hot' AND $_GET['day'] == 7) { ?> class="active"<?php } ?>><a href="explore/<?php if ($this->feature_info) { ?>feature_id-<?php echo $this->feature_info['id']; ?>__<?php } ?>sort_type-hot__<?php if ($this->category_info['id']) { ?>__category-<?php echo $this->category_info['id']; ?><?php } ?>__day-7" day="7"><?php _e('7天'); ?></a></li>
+							<li<?php if ($_GET['sort_type'] == 'hot' AND $_GET['day'] == 1) { ?> class="active"<?php } ?>><a href="explore/<?php if ($this->feature_info) { ?>feature_id-<?php echo $this->feature_info['id']; ?>__<?php } ?>sort_type-hot__<?php if ($this->category_info['id']) { ?>__category-<?php echo $this->category_info['id']; ?><?php } ?>__day-1" day="1"><?php _e('当天'); ?></a></li>
+						</ul>
+					</div>
+					<!-- end 自定义tab切换 -->
+					<?php } ?>
+
+					<div class="aw-mod aw-question-box-mod">
+						<div class="aw-mod-body">
+							<div class="aw-question-list">
+								<?php echo $this->posts_list_bit; ?>
+							</div>
+						</div>
+					</div>
+
+					<?php echo $this->pagination; ?>
+				</div>
+
+				<!-- 侧边栏 -->
+				<div class="col-sm-12 col-md-3 aw-side-bar aw-index-side-bar hidden-xs hidden-sm">
+					<?php TPL::output('block/sidebar_feature.tpl.htm'); ?>
+					<?php TPL::output('block/sidebar_hot_topics.tpl.htm'); ?>
+					<?php TPL::output('block/sidebar_hot_users.tpl.htm'); ?>
+				</div>
+				<!-- end 侧边栏 -->
+			</div>
+		</div>
+	</div>
+</div>
+
+<?php TPL::output('global/footer.tpl.htm'); ?>

@@ -1,0 +1,109 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+
+<div class="aw-container-wrap">
+	<div class="aw-container aw-wecenter">
+		<div class="container">
+			<div class="row aw-banner-nav">
+				<div class="col-sm-9 col-md-9 aw-main-nav">
+					<ul>
+						<li><a href="explore/">发现问题</a></li>
+						<li><a href="topic/square/hot">热门话题</a></li>
+						<li><a href="question/square/">查看问题</a></li>
+						<li><a href="article/square/">查看文章</a></li>
+					</ul>	
+				</div>
+				<div class="col-sm-3 col-md-3 aw-side-search pull-right">
+					<form class="navbar-search pull-right" action="search/" id="global_search_form" method="post">
+						<div class="input-group">
+							<input class="form-control" type="text" placeholder="<?php _e('搜索问题、话题或人'); ?>" autocomplete="off" name="q" id="aw-search-query" class="search-query" />
+							<span class="input-group-addon" title="<?php _e('搜索'); ?>" id="global_search_btns" onClick="$('#global_search_form').submit();"><i class="fa fa-search"></i></span>
+							<div class="clearfix"></div>
+							<div class="aw-dropdown">
+								<i class="i-dropdown-triangle"></i>
+								<p class="title"><?php _e('输入关键字进行搜索'); ?></p>
+								<ul class="aw-dropdown-list"></ul>
+								<p class="search"><span><?php _e('搜索'); ?>:</span><a onClick="$('#global_search_form').submit();"></a></p>
+								<p><a href="<?php if (get_setting('quick_publish') == 'Y' && $this->user_id) { ?>javascript:;<? } else { ?>publish<?php } ?>" onClick="$('#header_publish').click();" class="pull-right btn btn-normal btn-success publish"><?php _e('发起问题'); ?></a></p>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="row aw-content-wrap">
+				<div class="col-sm-12 col-md-9 aw-main-content">
+					<!-- 新消息通知 -->
+					<div class="aw-mod aw-new-message-tips aw-border-radius-5 hide" id="index_notification">
+						<div class="aw-mod-head">
+							<h3>
+								<span class="pull-right"><a href="account/setting/privacy/#notifications" class="aw-text-color-999"><i class="fa fa-cog"></i> <?php _e('通知设置'); ?></a></span>
+								<span><?php _e('新通知'); ?></span><em class="badge badge-important" name="notification_unread_num"><?php echo $this->user_info['notification_unread']; ?></em>
+							</h3>
+						</div>
+						<div class="aw-mod-body">
+							<ul id="notification_list"></ul>
+							<p>
+								<a href="javascript:;" onclick="read_notification(0, false, false);" class="pull-left btn btn-mini btn-default"><?php _e('我知道了'); ?></a>
+								<a href="notifications/" class="pull-right btn btn-mini btn-success"><?php _e('查看所有'); ?></a>
+							</p>
+						</div>
+					</div>
+					<!-- end 新消息通知 -->
+					
+					<a name="c_contents"></a>
+					<div class="aw-mod aw-dynamic-topic clearfix">
+						<div class="aw-mod-head clearfix">
+							<h2 id="main_title"><?php _e('最新动态'); ?></h2>
+							<?php if ($this->user_id) { ?>
+							<div class="aw-publish-btn pull-right">
+								<a id="header_publish"<?php if (get_setting('quick_publish') == 'Y' AND $this->user_id) { ?>href="publish/"<?php } else { ?>href="publish/<?php if ($_GET['category']) { ?>category_id-<?php echo intval($_GET['category']); ?>__<?php } ?><?php if ($this->topic_info) { ?>topic_title-<?php echo urlencode($this->topic_info['topic_title']); ?>__<?php } ?>"<?php } ?> class="<?php if ($_GET['app'] == 'publish') { ?> active<?php } ?>"<?php if (get_setting('quick_publish') == 'Y' && $this->user_id) { ?> onclick="$.dialog('publish', {'category_enable':'<?php echo (get_setting('category_enable') == 'Y') ? '1' : '0'; ?>', 'category_id':'<?php echo intval($_GET['category']); ?>', 'topic_title':'<?php echo $this->topic_info['topic_title']; ?>'}); return false;"<?php } ?>><i class="fa fa-edit"></i><?php _e('发起'); ?></a>
+							</div>
+							<?php }?>
+						</div>
+						
+						<div class="aw-mod-body" id="main_contents"></div>
+						
+						<!-- 加载更多内容 -->
+						<a id="bp_more" class="aw-load-more-content">
+							<span><?php _e('更多'); ?>...</span>
+						</a>
+						<!-- end 加载更多内容 -->
+					</div>
+				</div>
+				<!-- 侧边栏 -->
+				<div class="col-sm-12 col-md-3 aw-side-bar hidden-xs hidden-sm">
+					<?php TPL::output('block/sidebar_announce.tpl.htm'); ?>
+					
+					<?php TPL::output('block/sidebar_menu.tpl.htm'); ?>	
+					
+					<div class="aw-side-bar-mod invite-join">
+						<div class="aw-mod-head">
+							<h3><?php _e('邀请好友加入社区'); ?><?php if ($this->user_info['invitation_available']) { ?><em class="badge badge-info"><?php echo $this->user_info['invitation_available']; ?></em><?php } ?></h3>
+						</div>
+						<div class="aw-mod-body">
+							<a href="invitation/" class="btn btn-mini btn-success"><?php _e('发送邀请'); ?></a>
+						</div>
+					</div>
+					
+					<!-- 可能感兴趣的人/或话题 -->
+					<?php TPL::output('block/sidebar_recommend_users_topics.tpl.htm'); ?>
+				</div>
+				<!-- end 侧边栏 -->
+			</div>
+		</div>
+	</div>
+</div>
+
+<?php if ($_GET['first_login']) { ?>
+<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/ajaxupload.js"></script>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$.get(G_BASE_URL+'/account/ajax/welcome_message_template/', function (template) {
+			$('#aw-ajax-box').html(template);
+			$('body').addClass('modal-open');
+			welcome_step_1_load();
+		});
+	});
+</script>
+<?php } ?>
+
+<?php TPL::output('global/footer.tpl.htm'); ?>

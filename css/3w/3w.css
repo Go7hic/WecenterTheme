@@ -1,0 +1,21 @@
+a, a:hover, a:focus, .aw-topic-name span:hover, .aw-reset-nav-tabs > li > a:hover, .aw-mod-search-result .aw-search-result-tags:hover, .aw-reset-nav-tabs > li > a, .pagination>li>a:hover, .pagination>li>span:hover, .pagination>li>a:focus, .pagination>li>span:focus, .pagination>li>a, .pagination>li>span, .aw-load-more-content, .aw-dynamic-topic .aw-comment-upload-file-list a:hover, .aw-side-bar-mod.side-nav i, .aw-article-list .aw-mod-footer a:hover i, .aw-question-detail-meta a:hover i, .aw-dynamic-topic-meta a:hover i, .aw-article-list .aw-item h2 a, .aw-article-list .aw-item h2 a:hover, .aw-article-list .aw-item .aw-mod-footer span a:hover,.aw-text-color-blue, .aw-dynamic-topic .aw-vote-count, .aw-vote-bar .aw-vote-bar-count, .aw-vote-bar .aw-vote-bar-count.active,.aw-vote-bar i { color: #4baf97; }
+.btn-success, .btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active, .open .dropdown-toggle.btn-success, .btn.aw-active, .btn.aw-active:hover, .btn-primary, .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary { background-color: #1e9b7b; border-color: #1e9b7b; }
+.aw-top-menu-wrap, .aw-user-nav-dropdown-list ul li a, .badge.badge-info { background: #1e9b7b; }
+.aw-top-nav > nav > ul > li > a:hover, .aw-top-nav > nav > ul > li > a.active, .aw-logined-nav > ul > li a.active:hover, .aw-top-nav > nav > ul > li > a:focus, .aw-publish-btn a, .aw-publish-btn a:hover, .aw-user-nav-dropdown-list ul li a:hover, .category .col-sm-12 > .active, .aw-side-bar-topic-nav ul > li > a:hover, .aw-side-bar-topic-nav ul > li > a.active, .aw-side-bar-mod.side-nav ul li a:hover, .aw-side-bar-mod.side-nav ul li a.active, .aw-vote-bar a.active, .aw-user-nav > span > a:hover { background: #4baf97; }
+.aw-user-nav-dropdown-list ul li { border-top: 1px solid #1e9b7b; }
+.aw-user-nav > a:hover, .aw-publish-btn a, .aw-publish-btn a:hover { color: #fff; }
+.category dl { border-radius: 0; }
+.category dl:hover {background:#96D8C8; }
+.category dl:hover dd span { color: #fff; }
+.aw-logo a { background: url('img/logo.png') no-repeat; }
+/* 翻页按钮 */
+.pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus { background: #4baf97; border-color: #4baf97; }
+/* 发现页面 */
+.aw-question-content .content-wrap { position: relative;overflow: hidden;font-size: 14px;}
+.content-wrap .markitup-box {max-height: 100px!important;color: #999;padding-right: 160px;}
+.content-wrap .markitup-box img {position: absolute;width: 150px !important;height: 150px;top: 0;right: 0;margin-right: 0!important;}
+.aw-question-box-mod .aw-item.active, .aw-question-box-mod .aw-item.active .fa-caret-left {background-color: #fff;}
+/* 响应式 */
+@media (max-width: 640px) {
+	.aw-top-nav .navbar-collapse {background: #1e9b7b;}
+}

@@ -1,0 +1,86 @@
+<?php if ($this->posts_list) { ?>
+<?php foreach($this->posts_list as $key => $val) { ?>
+
+<tr class="aw-item  <?php if ($val['question_id']) { ?><?php if ($val['answer_count'] == 0) { ?>active<?php } ?><?php } else {?>article<?php } ?>">
+
+	<td>
+		<?php if ($val['question_id']) { ?>
+		<a href="question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a>
+		<?php } else { ?>
+		<a href="article/<?php echo $val['id']; ?>"><?php echo $val['title']; ?></a>
+		<?php } ?>
+
+	</td>
+
+	<td class="hidden-xs">
+		<?php foreach ($val['topics'] AS $t_key => $t_val) { ?>
+		<a href="topic/<?php echo $t_val['url_token']; ?>" class="aw-topic-name" data-id="<?php echo $t_val['topic_id']; ?>"><span><?php echo $t_val['topic_title']; ?></span></a><?php } ?>
+	</td>
+	<td class="d-td-img hidden-xs">
+		<?php if (is_array($val['answer_users'])) { ?>
+		<div class="hidden-xs contribute">
+			<?php foreach ($val['answer_users'] AS $answer_user) { ?>
+			<a class="aw-user-name" data-id="<?php echo $answer_user['uid']; ?>" href="people/<?php echo $answer_user['url_token']; ?>" rel="nofollow"><img src="<?php echo get_avatar_url($answer_user['uid'], 'mid'); ?>" alt="" /></a>
+			<?php } ?>
+		</div>
+		<?php } ?>
+	</td>
+	<td class="hidden-xs">
+		<?php if ($val['question_id']) { ?>
+		<?php if ($val['answer_count'] > 0) { ?>
+
+		<span class="aw-text-color-999"> <?php _e('%s 个回复', $val['answer_count']); ?>
+		</span>
+		<?php } else { ?>
+
+		<span class="aw-text-color-999"> <?php _e('%s 个回复', $val['answer_count']); ?>
+		</span>
+		<?php } ?>
+		<?php } else { ?>
+
+		<?php } ?>
+
+	</td>
+	<td class="hidden-xs">
+		<?php if ($val['question_id']) { ?>
+		<?php if ($val['answer_count'] > 0) { ?>
+
+		<span class="aw-text-color-999">
+			<?php _e('%s 人关注', $val['focus_count']); ?>
+		</span>
+		<?php } else { ?>
+
+		<span class="aw-text-color-999">
+			<?php _e('%s 人关注', $val['focus_count']); ?>
+		</span>
+		<?php } ?>
+		<?php } else { ?>
+
+		<?php } ?>
+	</td>
+	<td class="hidden-xs">
+
+		<?php if ($val['question_id']) { ?>
+		<?php if ($val['answer_count'] > 0) { ?>
+
+		<span class="aw-text-color-999">
+			<?php _e('%s 次浏览', $val['view_count']); ?>
+		</span>
+		<?php } else { ?>
+		<span class="aw-text-color-999"><?php _e('%s 次浏览', $val['view_count']); ?>
+		</span>
+		<?php } ?>
+		<?php } else { ?>
+		<span class="aw-text-color-999"> <?php _e('%s 次浏览', $val['views']); ?></span>
+		<?php } ?>
+	</td>
+	<td class="hidden-xs">
+		<span class="aw-text-color-999"><?php echo date_friendly($val['add_time']); ?></span>
+	</td>
+
+</tr>
+<?php } ?>
+<?php } ?>
+
+
+
