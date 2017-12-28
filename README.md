@@ -3,7 +3,7 @@ WecenterTheme
 
 Free WeCenter Theme By Gothic 
 
-这是早年实习的时候做的一些 wecenter 的模板。
+这是早年做的一些 wecenter 的模板。
 
 #### 关于WeCenter
 
